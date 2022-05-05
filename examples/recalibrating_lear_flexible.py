@@ -100,3 +100,4 @@ for date in forecast_dates:
 
     # Saving forecast
     forecast.to_csv(forecast_file_path)
+
