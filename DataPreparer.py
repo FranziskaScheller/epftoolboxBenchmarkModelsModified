@@ -149,5 +149,12 @@ DE11to20['PV+Wind Forecast'] = DE11to20['8:00 Uhr Prognose [MW]_x'] + DE11to20['
 
 DE11to20 = DE11to20.drop(columns = ['price day ahead actual', 'Prognose', '8:00 Uhr Prognose [MW]_x', '8:00 Uhr Prognose [MW]_y', 'Prognostiziert in MW', 'MW_x', 'MW_y', 'prognostiziert [MW]'])
 
-DE11to20.to_csv('DE11to20.csv')
+for date in Dates_TC_plus:
+    ind_row = DE11to20['Ampirion Load Forecast'][DE11to20['CET Timestamp'] == date[0]].index
+    DE11to20['Ampirion Load Forecast'].iloc[ind_row] = DE11to20['Ampirion Load Forecast'].iloc[ind_row-1]
+    DE11to20['PV+Wind Forecast'].iloc[ind_row] = DE11to20['PV+Wind Forecast'].iloc[ind_row-1]
+
+DE11to20 = DE11to20.fillna(method='ffill')
+
+DE11to20.to_csv('DE11to20.csv', index = False)
 print(1)

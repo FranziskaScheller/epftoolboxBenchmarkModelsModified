@@ -38,18 +38,19 @@ parser.add_argument("--end_test_date", type=str, default=None,
 
 #args = parser.parse_args()
 
-dataset = 'DE'
-years_test = 2
-begin_test_date = '4/1/2016 00:00'
-end_test_date = '31/12/2017 00:00'
+#data = pd.read_csv('datasets/DE11to20.csv', index_col=0)
+#data.to_csv('datasets/DE11to20.csv', index = False)
+dataset = 'DE11to20'
+years_test = 6
+#begin_test_date = '4/1/2015 00:00'
+#end_test_date = '31/12/2020 00:00'
 
 path_datasets_folder = os.path.join('.', 'datasets')
 path_recalibration_folder = os.path.join('.', 'experimental_files')
 
 # Defining train and testing data
 df_train, df_test = read_data(dataset=dataset, years_test=years_test, path=path_datasets_folder)
-
-
+#print(1)
 # df_train, df_test = read_data(dataset=dataset, years_test=years_test, path=path_datasets_folder,
 #                               begin_test_date=begin_test_date, end_test_date=end_test_date)
 
@@ -94,6 +95,6 @@ for calibration_window in [56, 84, 1092, 1456]:
         print('{} - sMAPE: {:.2f}%  |  MAE: {:.3f}'.format(str(date)[:10], smape, mae))
 
         # Saving forecast
-        forecast.to_csv('forecasts_lear_' + str(calibration_window) + '.csv')
+        forecast.to_csv('forecasts_lear_' + str(calibration_window) + '15to20.csv')
 
-    print(1)
+        print(str(date) + ' ' + str(calibration_window))
